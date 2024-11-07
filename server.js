@@ -5,6 +5,10 @@ const app = express();
 const mongodb = require("./database/");
 const baseRouter = require("./routes/");
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    next();
+})
 
 app.use("/", baseRouter);
 
