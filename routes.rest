@@ -1,14 +1,14 @@
 // LOCALHOST
-### Gell all contacts.
+### Get all contacts.
 GET http://localhost:3000/contacts/
 
-### Gell contact by Id.
+### Get contact by Id.
 GET http://localhost:3000/contacts/672c0cc586fd1d0ea35e9a13
 
 
 // PRODUCTION
-### Gell all contacts.
+### Get all contacts.
 GET https://cse341-contacts-ok3n.onrender.com/contacts
 
-### Gell contact by Id.
+### Get contact by Id.
 GET https://cse341-contacts-ok3n.onrender.com/contacts/672c0cc586fd1d0ea35e9a13
