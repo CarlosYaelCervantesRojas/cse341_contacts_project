@@ -7,10 +7,7 @@
   },
   "host": "cse341-contacts-ok3n.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/contacts/": {
       "get": {
