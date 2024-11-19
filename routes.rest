@@ -39,3 +39,30 @@ GET https://cse341-contacts-ok3n.onrender.com/contacts
 
 ### Get contact by Id.
 GET https://cse341-contacts-ok3n.onrender.com/contacts/672c0cc586fd1d0ea35e9a13
+
+### Post new contact.
+POST https://cse341-contacts-ok3n.onrender.com/contacts/
+content-type: application/json
+
+{
+    "firstName": "Alice",
+    "lastName": "Smith",
+    "email": "al.sh@email.com",
+    "favoriteColor": "pink",
+    "birthday": "2005-05-25"
+}
+
+### Update contact.
+PUT https://cse341-contacts-ok3n.onrender.com/contacts/672f08b462f0c23ca8edc07a
+content-type: application/json
+
+{
+    "firstName": "Tanner",
+    "lastName": "Hansen",
+    "email": "th@gmail.com",
+    "favoriteColor": "red",
+    "birthday": "1998-05-20"
+}
+
+### Delete contact.
+DELETE https://cse341-contacts-ok3n.onrender.com/contacts/673c25bbc07e8932baaa20b4

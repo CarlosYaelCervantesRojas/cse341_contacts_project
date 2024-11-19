@@ -11,7 +11,7 @@
   "paths": {
     "/contacts/": {
       "get": {
-        "description": "",
+        "description": "GET route to retireve all contacts. Return all data in the response body.",
         "produces": [
           "application/json"
         ],
@@ -22,7 +22,7 @@
         }
       },
       "post": {
-        "description": "",
+        "description": "POST route to create a new contact. All fields are required. Return the new contact id in the response body.",
         "produces": [
           "application/json"
         ],
@@ -64,7 +64,7 @@
     },
     "/contacts/{id}": {
       "get": {
-        "description": "",
+        "description": "GET route to retrieve a contact. Return the new contact data in the response body.",
         "produces": [
           "application/json"
         ],
@@ -79,11 +79,14 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found: The server cannot find the requested resource."
           }
         }
       },
       "put": {
-        "description": "",
+        "description": "PUT route to update a contact. Return an http status code representing the successful completion of the request.",
         "produces": [
           "application/json"
         ],
@@ -129,7 +132,7 @@
         }
       },
       "delete": {
-        "description": "",
+        "description": "DELETE route to delete a contact. Return an http status code representing the successful completion of the request.",
         "produces": [
           "application/json"
         ],
@@ -142,8 +145,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content: There is no content to send for this request."
           }
         }
       }
