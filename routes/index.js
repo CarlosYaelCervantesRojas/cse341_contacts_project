@@ -1,10 +1,9 @@
-const router = require("express").Router();
-const contactRouter = require("./contactRoutes");
+const router = require('express').Router();
+const contactRouter = require('./contactRoutes');
+const swaggerRouter = require('./swagger');
 
-router.get("/", (req, res) => {
-    res.send("Hello world!");
-});
+router.use('/', swaggerRouter);
 
-router.use("/contacts", contactRouter);
+router.use('/contacts', contactRouter);
 
 module.exports = router;

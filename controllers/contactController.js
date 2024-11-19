@@ -1,47 +1,95 @@
-const mongodb = require("../database");
-const { ObjectId } = require("mongodb");
+const contactModel = require('../models/contactModel');
 
-const db = process.env.DATABASE_NAME
-const collection = process.env.CONTACTS_COLLECTION
+const { ObjectId } = require('mongodb');
 
 
 async function getAll(req, res) {
-    try {
-        const client = mongodb.getClient();
-        const contactList = await client.db(db).collection(collection).find().toArray();
-        
-        res.setHeader("Content-Type", "application/json");
-        res.status(200).json(contactList);
-    } catch (error) {
-        console.error("Error fetching contacts:", error);
-        res.status(500).json({ message: "Error fetching contacts" });
-    }
+  const result = await contactModel.getAll()
+
+  res
+    .setHeader('Content-Type', 'application/json')
+    .status(result.status);
+
+  return res.json(result);
 }
 
-async function getByID(req ,res) {
-    try {
-        if (!ObjectId.isValid(req.params.id)) {
-            return res.status(400).json({ message: "Invalid ID format" });
-        }
-        
-        const _id = new ObjectId(req.params.id);
-        const client = mongodb.getClient();
-        const contact = await client.db(db).collection(collection).findOne({ _id });
+async function getByID(req, res) {
+  const id = req.params.id;
+  const _id = ObjectId.createFromHexString(id);
+  const result = await contactModel.getByID(_id);
 
-        if (!contact) {
-            return res.status(404).json({ message: "Contact not found" });
-        }
+  res
+    .setHeader('Content-Type', 'application/json')
+    .status(result.status);
 
-        res.setHeader("Content-Type", "application/json");
-        res.status(200).json(contact);
-    } catch (error) {
-        console.error("Error fetching contact:", error);
-        res.status(500).json({ message: "Error fetching contact" });
-    }
+  return res.json(result);
 }
 
+async function createContact(req, res) {
+  const newContact = {
+    firstName,
+    lastName,
+    email,
+    favoriteColor,
+    birthday
+  } = req.body;
+
+  const result = await contactModel.createContact(newContact);
+
+  res
+    .setHeader('Content-Type', 'application/json')
+    .status(result.status);
+  
+  return res.json(result);
+}
+
+async function updateContact(req, res) {
+  const updatedData = {
+    firstName,
+    lastName,
+    email,
+    favoriteColor,
+    birthday
+  } = req.body;
+  const id = req.params.id;
+  const _id = ObjectId.createFromHexString(id);
+
+  const data = await contactModel.getByID(_id);
+  if (!data.success) {
+    return res.status(data.status).json(data);
+  }
+
+  const result = await contactModel.updateContact(_id, updatedData);
+
+  res
+    .setHeader('Content-Type', 'application/json')
+    .status(result.status);
+
+  return res.json(result);
+}
+
+async function deleteContact(req, res) {
+  const id = req.params.id;
+  const _id = ObjectId.createFromHexString(id);
+
+  const data = await contactModel.getByID(_id);
+  if (!data.success) {
+    return res.status(data.status).json(data);
+  }
+
+  const result = await contactModel.deleteContact(_id);
+
+  res
+    .setHeader('Content-Type', 'application/json')
+    .status(result.status);
+
+  return res.json(result);
+}
 
 module.exports = {
-    getAll,
-    getByID
-}
+  getAll,
+  getByID,
+  createContact,
+  updateContact,
+  deleteContact
+};
